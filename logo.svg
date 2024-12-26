@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+    <!-- Fond du logo - Triangle abstrait -->
+    <defs>
+        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#61dafb;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#2e6fff;stop-opacity:1" />
+        </linearGradient>
+    </defs>
+
+    <!-- Trois triangles entrecroisés formant un T stylisé -->
+    <path d="M 120,40 L 200,160 L 280,40 Z" 
+          fill="none" 
+          stroke="url(#logoGradient)" 
+          stroke-width="8"
+          stroke-linejoin="round" />
+    
+    <path d="M 160,40 L 200,120 L 240,40 Z" 
+          fill="url(#logoGradient)" 
+          stroke="none" />
+
+    <!-- Texte TRINAL STUDIO -->
+    <text x="200" y="190" 
+          text-anchor="middle" 
+          font-family="Arial, sans-serif" 
+          font-weight="bold" 
+          font-size="24" 
+          fill="#61dafb">TRINAL STUDIO</text>
+
+    <!-- Points d'accent -->
+    <circle cx="140" cy="80" r="4" fill="#61dafb" />
+    <circle cx="260" cy="80" r="4" fill="#61dafb" />
+    <circle cx="200" cy="140" r="4" fill="#61dafb" />
+
+    <!-- Lignes de connexion dynamiques -->
+    <line x1="140" y1="80" x2="200" y2="140" 
+          stroke="#61dafb" 
+          stroke-width="2" 
+          stroke-dasharray="4,4" />
+    <line x1="260" y1="80" x2="200" y2="140" 
+          stroke="#61dafb" 
+          stroke-width="2" 
+          stroke-dasharray="4,4" />
+</svg>

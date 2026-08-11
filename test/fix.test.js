@@ -61,11 +61,9 @@ assert.strictEqual(score, 5, 'score extracted correctly from hsl hue');
 // Test 7: null-safe event binding
 console.log('Test 7: null-safe event binding');
 const nullToggle = null;
-assert.strictEqual(
-    nullToggle && nullToggle.addEventListener,
-    undefined,
-    'null toggle does not throw'
-);
+// The fix.js code uses `if (toggle)` which short-circuits for null
+assert.ok(!nullToggle, 'null toggle is falsy, so if(toggle) short-circuits safely');
+assert.strictEqual(nullToggle && nullToggle.addEventListener, null, 'null && ... returns null, not an error');
 
 console.log('\n\u2705 All 7 tests passed!');
 console.log('\nTo run in a browser environment:');

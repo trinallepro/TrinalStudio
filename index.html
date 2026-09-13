@@ -11,6 +11,7 @@
 <style>
   :root{
     --bg:#08070c;
+    --bg-soft:#0f0d17;
     --ink:#f5f1e8;
     --muted:#8b8794;
     --movies:#e7a33e;
@@ -24,10 +25,28 @@
 
   html,body{
     height:100%;
-    background:var(--bg);
+    background:radial-gradient(130% 120% at 50% -20%,#1b1530 0%,var(--bg-soft) 38%,var(--bg) 70%);
     color:var(--ink);
     font-family:'Inter',sans-serif;
     overflow-x:hidden;
+  }
+
+  body{
+    position:relative;
+  }
+
+  body::after{
+    content:"";
+    position:fixed;
+    inset:-20%;
+    pointer-events:none;
+    z-index:1;
+    opacity:.33;
+    background:
+      radial-gradient(35% 35% at 20% 30%,color-mix(in oklab,var(--movies) 55%,transparent),transparent 70%),
+      radial-gradient(30% 30% at 80% 70%,color-mix(in oklab,var(--musik) 60%,transparent),transparent 72%);
+    filter:blur(28px);
+    animation:aurora 12s ease-in-out infinite alternate;
   }
 
   /* --- grain texture --- */
@@ -73,6 +92,28 @@
     text-align:center;
     padding:6px 5vw 34px;
   }
+  .hero-kicker{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:14px;
+    padding:7px 14px;
+    border-radius:999px;
+    border:1px solid color-mix(in oklab,var(--muted) 65%,transparent);
+    background:color-mix(in oklab,var(--bg) 72%,transparent);
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:.11em;
+    text-transform:uppercase;
+    color:var(--ink);
+  }
+  .hero-kicker .dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:linear-gradient(120deg,var(--movies),var(--musik));
+    box-shadow:0 0 14px color-mix(in oklab,var(--movies) 55%,transparent);
+  }
   .hero-line h1{
     font-family:'Big Shoulders Display',sans-serif;
     font-weight:800;
@@ -87,6 +128,24 @@
     font-size:13px;
     color:var(--muted);
     letter-spacing:.04em;
+  }
+  .hero-pills{
+    margin-top:16px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .hero-pill{
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    border:1px solid color-mix(in oklab,var(--muted) 50%,transparent);
+    border-radius:999px;
+    padding:6px 12px;
+    background:color-mix(in oklab,var(--bg-soft) 58%,transparent);
+    color:var(--ink);
   }
 
   /* --- gateway / split doors --- */
@@ -109,7 +168,8 @@
     text-decoration:none;
     color:var(--ink);
     overflow:hidden;
-    transition:flex .55s cubic-bezier(.65,0,.35,1);
+    transition:flex .55s cubic-bezier(.65,0,.35,1),transform .35s ease,box-shadow .35s ease;
+    border:1px solid color-mix(in oklab,var(--muted) 32%,transparent);
     clip-path:polygon(0 0,100% 0,100% 100%,0 100%);
   }
 
@@ -124,6 +184,9 @@
   .gateway:has(.door.movies:hover) .door.musik{ flex:.78; }
   .gateway:has(.door.musik:hover) .door.musik{ flex:1.22; }
   .gateway:has(.door.musik:hover) .door.movies{ flex:.78; }
+  .door:hover{
+    transform:translateY(-4px);
+  }
 
   .seam{
     position:absolute;
@@ -183,6 +246,26 @@
     z-index:2;
   }
 
+  .orb{
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    border:1px solid color-mix(in oklab,var(--ink) 35%,transparent);
+    display:grid;
+    place-items:center;
+    font-size:25px;
+    line-height:1;
+    z-index:2;
+    backdrop-filter:blur(4px);
+    box-shadow:0 0 26px color-mix(in oklab,var(--ink) 20%,transparent);
+  }
+  .door.movies .orb{
+    background:radial-gradient(circle at 30% 28%,color-mix(in oklab,var(--movies) 62%,#fff),color-mix(in oklab,var(--movies) 40%,transparent));
+  }
+  .door.musik .orb{
+    background:radial-gradient(circle at 30% 28%,color-mix(in oklab,var(--musik) 62%,#fff),color-mix(in oklab,var(--musik) 40%,transparent));
+  }
+
   .badge{
     z-index:2;
     display:inline-flex;
@@ -213,6 +296,12 @@
   .door:hover .enter{ gap:14px; }
   .door.movies .enter{color:var(--movies);}
   .door.musik .enter{color:var(--musik);}
+  .door.movies:hover{
+    box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--movies) 45%,transparent),0 24px 48px -32px color-mix(in oklab,var(--movies) 46%,transparent);
+  }
+  .door.musik:hover{
+    box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--musik) 45%,transparent),0 24px 48px -32px color-mix(in oklab,var(--musik) 45%,transparent);
+  }
 
   footer{
     position:relative;
@@ -231,6 +320,7 @@
     .door{ padding:56px 24px; clip-path:none; }
     .gateway:has(.door:hover) .door{ flex:1 !important; }
     .seam{ display:none; }
+    .hero-kicker{ margin-bottom:12px; }
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -242,6 +332,11 @@
     outline:2px solid var(--ink);
     outline-offset:-6px;
   }
+
+  @keyframes aurora{
+    0%{transform:translate3d(0,0,0) scale(1);}
+    100%{transform:translate3d(2%, -2%,0) scale(1.08);}
+  }
 </style>
 </head>
 <body>
@@ -252,8 +347,14 @@
   </header>
 
   <div class="hero-line">
+    <div class="hero-kicker"><span class="dot"></span>Expérience Trinal Studio</div>
     <h1>Deux mondes. Zéro pub. Zéro euro.</h1>
     <p>Choisis ton entrée : films & séries, ou musique en streaming.</p>
+    <div class="hero-pills">
+      <span class="hero-pill">Ambiance cinéma</span>
+      <span class="hero-pill">Flow musical</span>
+      <span class="hero-pill">Accès instantané</span>
+    </div>
   </div>
 
   <div class="gateway">
@@ -262,6 +363,7 @@
     <!-- Remplace ce lien par l'URL réelle de Trinal Movies -->
     <a class="door movies" href="https://ferry-crowd-baking-liz.trycloudflare.com" aria-label="Aller sur Trinal Movies">
       <div class="motif"></div>
+      <span class="orb" aria-hidden="true">🎬</span>
       <span class="eyebrow">Films & séries</span>
       <h2>Trinal<br>Movies</h2>
       <p class="desc">Catalogue de films et séries en streaming, sans coupure publicitaire.</p>
@@ -270,8 +372,9 @@
     </a>
 
     <!-- Remplace ce lien par l'URL réelle de Trinal Musik -->
-    <a class="door musik" href="https://particular-bowling-organize-motivated.trycloudflare.com/  " aria-label="Aller sur Trinal Musik">
+    <a class="door musik" href="https://particular-bowling-organize-motivated.trycloudflare.com/" aria-label="Aller sur Trinal Musik">
       <div class="motif"></div>
+      <span class="orb" aria-hidden="true">🎧</span>
       <span class="eyebrow">Musique</span>
       <h2>Trinal<br>Musik</h2>
       <p class="desc">Écoute et découvre de la musique en streaming, sans coupure publicitaire.</p>

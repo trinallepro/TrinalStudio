@@ -334,6 +334,38 @@
     transition:background .25s ease,transform .25s ease;
   }
   .featured-link:hover{background:color-mix(in oklab,var(--velo) 22%,transparent);transform:translateY(-2px);}
+  .experience-health{
+    margin-top:16px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:12px;
+  }
+  .status-check-btn{
+    appearance:none;
+    border:1px solid color-mix(in oklab,var(--velo) 70%,transparent);
+    border-radius:999px;
+    background:color-mix(in oklab,var(--bg-soft) 75%,transparent);
+    color:var(--ink);
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:9px 14px;
+    cursor:pointer;
+    transition:background .25s ease,transform .25s ease,opacity .25s ease;
+  }
+  .status-check-btn:hover{background:color-mix(in oklab,var(--velo) 18%,transparent);transform:translateY(-1px);}
+  .status-check-btn:disabled{opacity:.55;cursor:wait;transform:none;}
+  .status-message{
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    letter-spacing:.03em;
+    color:var(--muted);
+  }
+  .status-message[data-state="loading"]{color:var(--ink);}
+  .status-message[data-state="success"]{color:var(--musik);}
+  .status-message[data-state="error"]{color:var(--movies);}
 
   footer{
     position:relative;
@@ -417,9 +449,13 @@
 
   <section class="featured-section" aria-labelledby="veloworld-title">
     <div class="featured-content">
-      <span class="eyebrow">Nouvelle expérience</span>
+      <span class="eyebrow">Disponibilité en direct</span>
       <h2 id="veloworld-title">Trinal Velo World</h2>
       <p>Une expérience de cyclisme 3D jouable dans le navigateur, propulsée par Three.js, avec parcours généré progressivement, 7 ambiances (forêt, campagne, Provence, côte, canyon, Alpes, automne), commandes clavier et boutons tactiles, gestion de la vitesse, de la distance, du sprint et du freinage.</p>
+      <div class="experience-health">
+        <button type="button" class="status-check-btn" data-status-button>Vérifier l'accès</button>
+        <span class="status-message" data-status-message data-state="empty" role="status" aria-live="polite">Aucune vérification lancée.</span>
+      </div>
       <a class="featured-link" href="https://trinalstudioveloworld.onrender.com" target="_blank" rel="noopener noreferrer" aria-label="Découvrir Trinal Velo World">
         Découvrir Trinal Velo World <span aria-hidden="true">↗</span>
       </a>
@@ -428,9 +464,13 @@
 
   <section class="featured-section" aria-labelledby="pixeltycoon-title">
     <div class="featured-content">
-      <span class="eyebrow">Nouvelle expérience</span>
+      <span class="eyebrow">Disponibilité en direct</span>
       <h2 id="pixeltycoon-title">Pixel Tycoon</h2>
       <p>Une expérience de gestion/tycoon pixelisée accessible directement depuis le site, pensée pour lancer rapidement une partie dans un univers rétro.</p>
+      <div class="experience-health">
+        <button type="button" class="status-check-btn" data-status-button>Vérifier l'accès</button>
+        <span class="status-message" data-status-message data-state="empty" role="status" aria-live="polite">Aucune vérification lancée.</span>
+      </div>
       <a class="featured-link" href="https://pixeltycoon.onrender.com" target="_blank" rel="noopener noreferrer" aria-label="Découvrir Pixel Tycoon">
         Découvrir Pixel Tycoon <span aria-hidden="true">↗</span>
       </a>
@@ -439,9 +479,13 @@
 
   <section class="featured-section" aria-labelledby="animadex-title">
     <div class="featured-content">
-      <span class="eyebrow">Nouvelle expérience</span>
+      <span class="eyebrow">Disponibilité en direct</span>
       <h2 id="animadex-title">Animadex</h2>
       <p>Une plateforme orientée découverte d'animations et de contenus animés, accessible en un clic depuis l'univers Trinal Studio.</p>
+      <div class="experience-health">
+        <button type="button" class="status-check-btn" data-status-button>Vérifier l'accès</button>
+        <span class="status-message" data-status-message data-state="empty" role="status" aria-live="polite">Aucune vérification lancée.</span>
+      </div>
       <a class="featured-link" href="https://animadex.onrender.com" target="_blank" rel="noopener noreferrer" aria-label="Découvrir Animadex">
         Découvrir Animadex <span aria-hidden="true">↗</span>
       </a>
@@ -449,6 +493,48 @@
   </section>
 
   <footer>Trinal Studio — Édité en indépendant · Toujours gratuit, toujours sans pub</footer>
+
+  <script>
+    document.querySelectorAll('.featured-section').forEach((section) => {
+      const checkButton = section.querySelector('[data-status-button]');
+      const statusMessage = section.querySelector('[data-status-message]');
+      const featuredLink = section.querySelector('.featured-link');
+      const title = section.querySelector('h2')?.textContent?.trim() ?? 'Cette expérience';
+
+      if (!checkButton || !statusMessage || !featuredLink) return;
+
+      const setState = (state, message) => {
+        statusMessage.dataset.state = state;
+        statusMessage.textContent = message;
+      };
+
+      checkButton.addEventListener('click', async () => {
+        checkButton.disabled = true;
+        setState('loading', `Vérification de ${title} en cours…`);
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 7000);
+
+        try {
+          await fetch(featuredLink.href, {
+            method: 'HEAD',
+            mode: 'no-cors',
+            cache: 'no-store',
+            signal: controller.signal
+          });
+          setState('success', `${title} semble accessible. Tu peux ouvrir le lien.`);
+        } catch (error) {
+          const timeoutMessage = error instanceof DOMException && error.name === 'AbortError';
+          setState('error', timeoutMessage
+            ? `La vérification de ${title} a expiré. Réessaie dans quelques secondes.`
+            : `Impossible de vérifier ${title} pour l’instant. Réessaie plus tard.`);
+        } finally {
+          clearTimeout(timeoutId);
+          checkButton.disabled = false;
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>

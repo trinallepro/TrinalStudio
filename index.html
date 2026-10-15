@@ -1,498 +1,855 @@
+Voici le **code complet**, avec le rafraîchissement visuel et le bouton de téléchargement Windows de Trinal Movies. Le bouton est placé sous les cartes Movies et Musik.
+
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trinal Studio — Films, musique, vélo 3D et expériences créatives</title>
-<meta name="description" content="Trinal Studio réunit plusieurs expériences gratuites et sans publicité : streaming vidéo, streaming musical, cyclisme 3D dans le navigateur et découvertes créatives.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#08070c;
-    --bg-soft:#0f0d17;
-    --ink:#f5f1e8;
-    --muted:#8b8794;
-    --movies:#e7a33e;
-    --movies-deep:#3a2a10;
-    --musik:#35d6c0;
-    --musik-deep:#0e2e2a;
-    --velo:#9f7aea;
-    --velo-deep:#24173d;
-    --animadex:#f472b6;
-    --animadex-deep:#40152f;
-    --seam:#08070c;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  *{margin:0;padding:0;box-sizing:border-box;}
+  <title>Trinal Studio — Films, musique, vélo 3D et expériences créatives</title>
+  <meta
+    name="description"
+    content="Trinal Studio réunit plusieurs expériences gratuites et sans publicité : streaming vidéo, streaming musical, cyclisme 3D dans le navigateur et découvertes créatives."
+  >
+  <meta name="theme-color" content="#09090d">
 
-  html,body{
-    height:100%;
-    background:radial-gradient(130% 120% at 50% -20%,#1b1530 0%,var(--bg-soft) 38%,var(--bg) 70%);
-    color:var(--ink);
-    font-family:'Inter',sans-serif;
-    overflow-x:hidden;
-  }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
-  body{position:relative;}
+  <style>
+    :root {
+      --bg: #09090d;
+      --bg-soft: #111119;
+      --ink: #f7f5ef;
+      --muted: #aaa6b3;
+      --movies: #ffb84d;
+      --movies-deep: #3a2a10;
+      --musik: #54e1cb;
+      --musik-deep: #0e2e2a;
+      --velo: #b49aff;
+      --velo-deep: #24173d;
+      --animadex: #f472b6;
+      --animadex-deep: #40152f;
+    }
 
-  body::after{
-    content:"";
-    position:fixed;
-    inset:-20%;
-    pointer-events:none;
-    z-index:1;
-    opacity:.33;
-    background:
-      radial-gradient(35% 35% at 20% 30%,color-mix(in oklab,var(--movies) 55%,transparent),transparent 70%),
-      radial-gradient(30% 30% at 80% 70%,color-mix(in oklab,var(--musik) 60%,transparent),transparent 72%);
-    filter:blur(28px);
-    animation:aurora 12s ease-in-out infinite alternate;
-  }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  /* --- grain texture --- */
-  body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:50;
-    opacity:.05;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
-  }
+    html {
+      min-height: 100%;
+      scroll-behavior: smooth;
+    }
 
-  header{
-    position:relative;
-    z-index:10;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:28px 5vw;
-  }
+    body {
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(ellipse at 12% 8%, rgba(255, 184, 77, .11), transparent 32%),
+        radial-gradient(ellipse at 88% 38%, rgba(84, 225, 203, .09), transparent 34%),
+        radial-gradient(130% 120% at 50% -20%, #1b1530 0%, var(--bg-soft) 38%, var(--bg) 70%);
+    }
 
-  .wordmark{
-    font-family:'Big Shoulders Display',sans-serif;
-    font-weight:800;
-    font-size:22px;
-    letter-spacing:.06em;
-    text-transform:uppercase;
-  }
-  .wordmark span{color:var(--musik);}
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      pointer-events: none;
+      opacity: .045;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+    }
 
-  .tagline{
-    font-family:'Space Mono',monospace;
-    font-size:12px;
-    letter-spacing:.08em;
-    color:var(--muted);
-    text-transform:uppercase;
-  }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: -20%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .25;
+      background:
+        radial-gradient(35% 35% at 20% 30%, rgba(255, 184, 77, .2), transparent 70%),
+        radial-gradient(30% 30% at 80% 70%, rgba(84, 225, 203, .18), transparent 72%);
+      filter: blur(28px);
+      animation: aurora 12s ease-in-out infinite alternate;
+    }
 
-  .hero-line{
-    position:relative;
-    z-index:10;
-    text-align:center;
-    padding:6px 5vw 34px;
-  }
-  .hero-kicker{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    margin-bottom:14px;
-    padding:7px 14px;
-    border-radius:999px;
-    border:1px solid color-mix(in oklab,var(--muted) 65%,transparent);
-    background:color-mix(in oklab,var(--bg) 72%,transparent);
-    font-family:'Space Mono',monospace;
-    font-size:11px;
-    letter-spacing:.11em;
-    text-transform:uppercase;
-    color:var(--ink);
-  }
-  .hero-kicker .dot{
-    width:7px;
-    height:7px;
-    border-radius:50%;
-    background:linear-gradient(120deg,var(--movies),var(--musik));
-    box-shadow:0 0 14px color-mix(in oklab,var(--movies) 55%,transparent);
-  }
-  .hero-line h1{
-    font-family:'Big Shoulders Display',sans-serif;
-    font-weight:800;
-    font-size:clamp(28px,5vw,46px);
-    line-height:1.05;
-    letter-spacing:.01em;
-    text-transform:uppercase;
-  }
-  .hero-line p{
-    margin-top:10px;
-    font-family:'Space Mono',monospace;
-    font-size:13px;
-    color:var(--muted);
-    letter-spacing:.04em;
-  }
-  .hero-pills{
-    margin-top:16px;
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    flex-wrap:wrap;
-  }
-  .hero-pill{
-    font-family:'Space Mono',monospace;
-    font-size:11px;
-    letter-spacing:.06em;
-    text-transform:uppercase;
-    border:1px solid color-mix(in oklab,var(--muted) 50%,transparent);
-    border-radius:999px;
-    padding:6px 12px;
-    background:color-mix(in oklab,var(--bg-soft) 58%,transparent);
-    color:var(--ink);
-  }
+    header,
+    main,
+    footer {
+      position: relative;
+      z-index: 2;
+    }
 
-  /* --- gateway / split doors --- */
-  .gateway{
-    position:relative;
-    display:flex;
-    height:64vh;
-    min-height:420px;
-    width:100%;
-  }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 28px 5vw;
+    }
 
-  .door{
-    position:relative;
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:18px;
-    text-decoration:none;
-    color:var(--ink);
-    overflow:hidden;
-    transition:flex .55s cubic-bezier(.65,0,.35,1),transform .35s ease,box-shadow .35s ease;
-    border:1px solid color-mix(in oklab,var(--muted) 32%,transparent);
-    clip-path:polygon(0 0,100% 0,100% 100%,0 100%);
-  }
+    .wordmark {
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
 
-  .door.movies{background:radial-gradient(120% 140% at 20% 15%,var(--movies-deep) 0%,var(--bg) 62%);}
-  .door.musik{background:radial-gradient(120% 140% at 80% 85%,var(--musik-deep) 0%,var(--bg) 62%);}
+    .wordmark span {
+      color: var(--musik);
+    }
 
-  .gateway:has(.door.movies:hover) .door.movies{flex:1.22;}
-  .gateway:has(.door.movies:hover) .door.musik{flex:.78;}
-  .gateway:has(.door.musik:hover) .door.musik{flex:1.22;}
-  .gateway:has(.door.musik:hover) .door.movies{flex:.78;}
-  .door:hover{transform:translateY(-4px);}
+    .tagline {
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
 
-  .seam{
-    position:absolute;
-    top:0;bottom:0;left:50%;
-    width:1px;
-    background:linear-gradient(to bottom,transparent,var(--muted),transparent);
-    z-index:5;
-    transform:translateX(-50%);
-    pointer-events:none;
-  }
+    .hero-line {
+      padding: 28px 5vw 46px;
+      text-align: center;
+    }
 
-  /* decorative motifs */
-  .motif{position:absolute;inset:0;opacity:.18;pointer-events:none;}
-  .door.movies .motif{
-    background-image:radial-gradient(circle,var(--movies) 2.5px,transparent 2.6px);
-    background-size:26px 26px;
-    background-position:-8px -8px;
-    mask-image:linear-gradient(to right,black,transparent 70%);
-  }
-  .door.musik .motif{
-    background:repeating-linear-gradient(90deg,var(--musik) 0 3px,transparent 3px 14px);
-    mask-image:linear-gradient(to left,black,transparent 70%);
-  }
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 17px;
+      padding: 8px 14px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 999px;
+      background: rgba(9, 9, 13, .6);
+      color: var(--ink);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
 
-  .eyebrow{
-    font-family:'Space Mono',monospace;
-    font-size:12px;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-    z-index:2;
-  }
-  .door.movies .eyebrow{color:var(--movies);}
-  .door.musik .eyebrow{color:var(--musik);}
+    .hero-kicker .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(120deg, var(--movies), var(--musik));
+      box-shadow: 0 0 14px rgba(255, 184, 77, .55);
+    }
 
-  .door h2{
-    font-family:'Big Shoulders Display',sans-serif;
-    font-weight:800;
-    font-size:clamp(38px,7vw,72px);
-    letter-spacing:.01em;
-    text-transform:uppercase;
-    z-index:2;
-    text-align:center;
-  }
+    .hero-line h1 {
+      max-width: 900px;
+      margin: 0 auto;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: clamp(38px, 7vw, 76px);
+      font-weight: 800;
+      line-height: .98;
+      letter-spacing: -.02em;
+      text-transform: uppercase;
+    }
 
-  .door p.desc{
-    font-size:14px;
-    color:var(--muted);
-    max-width:280px;
-    text-align:center;
-    z-index:2;
-  }
+    .hero-line > p {
+      max-width: 760px;
+      margin: 16px auto 0;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      letter-spacing: .03em;
+    }
 
-  .orb{
-    width:64px;
-    height:64px;
-    border-radius:50%;
-    border:1px solid color-mix(in oklab,var(--ink) 35%,transparent);
-    display:grid;
-    place-items:center;
-    font-size:25px;
-    line-height:1;
-    z-index:2;
-    backdrop-filter:blur(4px);
-    box-shadow:0 0 26px color-mix(in oklab,var(--ink) 20%,transparent);
-  }
-  .door.movies .orb{background:radial-gradient(circle at 30% 28%,color-mix(in oklab,var(--movies) 62%,#fff),color-mix(in oklab,var(--movies) 40%,transparent));}
-  .door.musik .orb{background:radial-gradient(circle at 30% 28%,color-mix(in oklab,var(--musik) 62%,#fff),color-mix(in oklab,var(--musik) 40%,transparent));}
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
 
-  .badge{
-    z-index:2;
-    display:inline-flex;
-    gap:8px;
-    align-items:center;
-    font-family:'Space Mono',monospace;
-    font-size:11px;
-    letter-spacing:.06em;
-    text-transform:uppercase;
-    padding:7px 14px;
-    border:1px solid var(--muted);
-    border-radius:999px;
-    color:var(--ink);
-  }
+    .hero-pill {
+      padding: 7px 12px;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 999px;
+      background: rgba(17, 17, 25, .62);
+      color: var(--ink);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
 
-  .enter{
-    z-index:2;
-    font-family:'Space Mono',monospace;
-    font-size:12px;
-    letter-spacing:.06em;
-    text-transform:uppercase;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    opacity:.85;
-    transition:gap .3s ease;
-  }
-  .door:hover .enter{gap:14px;}
-  .door.movies .enter{color:var(--movies);}
-  .door.musik .enter{color:var(--musik);}
-  .door.movies:hover{box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--movies) 45%,transparent),0 24px 48px -32px color-mix(in oklab,var(--movies) 46%,transparent);}
-  .door.musik:hover{box-shadow:inset 0 0 0 1px color-mix(in oklab,var(--musik) 45%,transparent),0 24px 48px -32px color-mix(in oklab,var(--musik) 45%,transparent);}
+    /* Cartes principales */
+    .gateway {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+      max-width: 1440px;
+      min-height: 470px;
+      margin: 0 auto;
+      padding: 0 5vw;
+    }
 
-  .featured-section{
-    position:relative;
-    z-index:10;
-    margin:34px 5vw 0;
-    padding:34px clamp(24px,5vw,64px);
-    border:1px solid color-mix(in oklab,var(--velo) 55%,transparent);
-    border-radius:24px;
-    background:radial-gradient(110% 160% at 10% 10%,var(--velo-deep) 0%,color-mix(in oklab,var(--bg-soft) 88%,transparent) 58%,var(--bg) 100%);
-    overflow:hidden;
-  }
-  .featured-section::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    opacity:.16;
-    background:linear-gradient(125deg,transparent 15%,var(--velo) 50%,transparent 85%);
-    mask-image:linear-gradient(to right,black,transparent 78%);
-  }
-  .featured-content{position:relative;z-index:1;max-width:760px;}
-  .featured-section .eyebrow{color:var(--velo);}
-  .featured-section h2{
-    margin-top:10px;
-    font-family:'Big Shoulders Display',sans-serif;
-    font-size:clamp(34px,6vw,62px);
-    line-height:1;
-    text-transform:uppercase;
-  }
-  .featured-section p{
-    margin-top:12px;
-    color:var(--muted);
-    max-width:620px;
-    line-height:1.6;
-  }
-  .featured-link{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    margin-top:22px;
-    padding:12px 18px;
-    border:1px solid var(--velo);
-    border-radius:999px;
-    color:var(--ink);
-    text-decoration:none;
-    font-family:'Space Mono',monospace;
-    font-size:12px;
-    letter-spacing:.04em;
-    transition:background .25s ease,transform .25s ease;
-  }
-  .featured-link:hover{background:color-mix(in oklab,var(--velo) 22%,transparent);transform:translateY(-2px);}
-  .experience-health{
-    margin-top:16px;
-    display:flex;
-    flex-wrap:wrap;
-    align-items:center;
-    gap:12px;
-  }
-  .status-check-btn{
-    appearance:none;
-    border:1px solid color-mix(in oklab,var(--velo) 70%,transparent);
-    border-radius:999px;
-    background:color-mix(in oklab,var(--bg-soft) 75%,transparent);
-    color:var(--ink);
-    font-family:'Space Mono',monospace;
-    font-size:11px;
-    letter-spacing:.04em;
-    text-transform:uppercase;
-    padding:9px 14px;
-    cursor:pointer;
-    transition:background .25s ease,transform .25s ease,opacity .25s ease;
-  }
-  .status-check-btn:hover{background:color-mix(in oklab,var(--velo) 18%,transparent);transform:translateY(-1px);}
-  .status-check-btn:disabled{opacity:.55;cursor:wait;transform:none;}
-  .status-message{
-    font-family:'Space Mono',monospace;
-    font-size:12px;
-    letter-spacing:.03em;
-    color:var(--muted);
-  }
-  .status-message[data-state="loading"]{color:var(--ink);}
-  .status-message[data-state="success"]{color:var(--musik);}
-  .status-message[data-state="error"]{color:var(--movies);}
+    .door {
+      position: relative;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 28px;
+      color: var(--ink);
+      text-align: center;
+      text-decoration: none;
+      transition:
+        flex .45s cubic-bezier(.65, 0, .35, 1),
+        transform .3s ease,
+        box-shadow .3s ease;
+    }
 
-  footer{
-    position:relative;
-    z-index:10;
-    text-align:center;
-    padding:26px 5vw 34px;
-    font-family:'Space Mono',monospace;
-    font-size:11px;
-    letter-spacing:.06em;
-    color:var(--muted);
-    text-transform:uppercase;
-  }
+    .door.movies {
+      background:
+        radial-gradient(120% 140% at 20% 15%, var(--movies-deep) 0%, var(--bg) 62%);
+    }
 
-  @media (max-width:720px){
-    .gateway{flex-direction:column;height:auto;}
-    .door{padding:56px 24px;clip-path:none;}
-    .gateway:has(.door:hover) .door{flex:1 !important;}
-    .seam{display:none;}
-    .hero-kicker{margin-bottom:12px;}
-    .featured-section{margin-top:24px;border-radius:18px;}
-  }
+    .door.musik {
+      background:
+        radial-gradient(120% 140% at 80% 85%, var(--musik-deep) 0%, var(--bg) 62%);
+    }
 
-  @media (prefers-reduced-motion:reduce){
-    .door,.featured-link{transition:none;}
-    .enter{transition:none;}
-  }
+    .gateway:has(.door.movies:hover) .door.movies {
+      flex: 1.12;
+    }
 
-  a.door:focus-visible,.featured-link:focus-visible{outline:2px solid var(--ink);outline-offset:-6px;}
+    .gateway:has(.door.movies:hover) .door.musik {
+      flex: .88;
+    }
 
-  @keyframes aurora{
-    0%{transform:translate3d(0,0,0) scale(1);}
-    100%{transform:translate3d(2%,-2%,0) scale(1.08);}
-  }
-</style>
+    .gateway:has(.door.musik:hover) .door.musik {
+      flex: 1.12;
+    }
+
+    .gateway:has(.door.musik:hover) .door.movies {
+      flex: .88;
+    }
+
+    .door:hover {
+      transform: translateY(-5px);
+    }
+
+    .door.movies:hover {
+      box-shadow: 0 24px 48px -32px rgba(255, 184, 77, .55);
+    }
+
+    .door.musik:hover {
+      box-shadow: 0 24px 48px -32px rgba(84, 225, 203, .5);
+    }
+
+    .motif {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .15;
+    }
+
+    .door.movies .motif {
+      background-image: radial-gradient(circle, var(--movies) 2.5px, transparent 2.6px);
+      background-size: 26px 26px;
+      background-position: -8px -8px;
+      mask-image: linear-gradient(to right, black, transparent 70%);
+    }
+
+    .door.musik .motif {
+      background: repeating-linear-gradient(90deg, var(--musik) 0 3px, transparent 3px 14px);
+      mask-image: linear-gradient(to left, black, transparent 70%);
+    }
+
+    .orb {
+      z-index: 1;
+      display: grid;
+      width: 64px;
+      height: 64px;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .35);
+      border-radius: 50%;
+      font-size: 25px;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 0 26px rgba(255, 255, 255, .12);
+    }
+
+    .door.movies .orb {
+      background: rgba(255, 184, 77, .2);
+    }
+
+    .door.musik .orb {
+      background: rgba(84, 225, 203, .2);
+    }
+
+    .eyebrow {
+      z-index: 1;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .door.movies .eyebrow,
+    .door.movies .enter {
+      color: var(--movies);
+    }
+
+    .door.musik .eyebrow,
+    .door.musik .enter {
+      color: var(--musik);
+    }
+
+    .door h2 {
+      z-index: 1;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: clamp(42px, 7vw, 76px);
+      font-weight: 800;
+      line-height: .9;
+      text-transform: uppercase;
+    }
+
+    .door .desc {
+      z-index: 1;
+      max-width: 290px;
+      padding: 0 12px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .badge {
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border: 1px solid rgba(255, 255, 255, .3);
+      border-radius: 999px;
+      color: var(--ink);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .enter {
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: gap .25s ease;
+    }
+
+    .door:hover .enter {
+      gap: 14px;
+    }
+
+    .door:focus-visible,
+    .featured-link:focus-visible,
+    .download-button:focus-visible,
+    .status-check-btn:focus-visible {
+      outline: 3px solid var(--ink);
+      outline-offset: 4px;
+    }
+
+    /* Téléchargement Windows */
+    .download-section {
+      position: relative;
+      z-index: 2;
+      max-width: 1320px;
+      margin: 24px auto 0;
+      padding: 30px clamp(24px, 5vw, 64px);
+      overflow: hidden;
+      border: 1px solid rgba(255, 184, 77, .38);
+      border-radius: 24px;
+      background:
+        radial-gradient(100% 180% at 0% 0%, rgba(255, 184, 77, .15), transparent 60%),
+        var(--bg-soft);
+    }
+
+    .download-section .eyebrow {
+      color: var(--movies);
+    }
+
+    .download-section h2 {
+      margin-top: 10px;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: clamp(34px, 6vw, 58px);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .download-section p {
+      max-width: 680px;
+      margin-top: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .download-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      margin-top: 22px;
+      padding: 13px 20px;
+      border: 1px solid var(--movies);
+      border-radius: 999px;
+      background: var(--movies);
+      color: #17120a;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .03em;
+      text-decoration: none;
+      transition: transform .2s ease, filter .2s ease;
+    }
+
+    .download-button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .download-note {
+      display: block;
+      margin-top: 12px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    /* Sections des autres expériences */
+    .featured-section {
+      position: relative;
+      z-index: 2;
+      max-width: 1320px;
+      margin: 34px auto 0;
+      padding: 34px clamp(24px, 5vw, 64px);
+      overflow: hidden;
+      border: 1px solid rgba(180, 154, 255, .32);
+      border-radius: 24px;
+      background:
+        radial-gradient(110% 160% at 10% 10%, var(--velo-deep) 0%, rgba(17, 17, 25, .9) 58%, var(--bg) 100%);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .22);
+    }
+
+    .featured-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .12;
+      background: linear-gradient(125deg, transparent 15%, var(--velo) 50%, transparent 85%);
+      mask-image: linear-gradient(to right, black, transparent 78%);
+    }
+
+    .featured-content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+    }
+
+    .featured-section .eyebrow {
+      color: var(--velo);
+    }
+
+    .featured-section h2 {
+      margin-top: 10px;
+      font-family: 'Big Shoulders Display', sans-serif;
+      font-size: clamp(34px, 6vw, 62px);
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .featured-section p {
+      max-width: 620px;
+      margin-top: 12px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .experience-health {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .status-check-btn {
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid rgba(180, 154, 255, .7);
+      border-radius: 999px;
+      background: rgba(17, 17, 25, .75);
+      color: var(--ink);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .25s ease, transform .25s ease, opacity .25s ease;
+    }
+
+    .status-check-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(180, 154, 255, .18);
+    }
+
+    .status-check-btn:disabled {
+      opacity: .55;
+      cursor: wait;
+      transform: none;
+    }
+
+    .status-message {
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .status-message[data-state="loading"] {
+      color: var(--ink);
+    }
+
+    .status-message[data-state="success"] {
+      color: var(--musik);
+    }
+
+    .status-message[data-state="error"] {
+      color: var(--movies);
+    }
+
+    .featured-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      margin-top: 22px;
+      padding: 12px 18px;
+      border: 1px solid var(--velo);
+      border-radius: 999px;
+      color: var(--ink);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: .04em;
+      text-decoration: none;
+      transition: background .25s ease, transform .25s ease;
+    }
+
+    .featured-link:hover {
+      transform: translateY(-2px);
+      background: rgba(180, 154, 255, .18);
+    }
+
+    footer {
+      padding: 30px 5vw 36px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .06em;
+      line-height: 1.7;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    @keyframes aurora {
+      from {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      to {
+        transform: translate3d(2%, -2%, 0) scale(1.08);
+      }
+    }
+
+    @media (max-width: 720px) {
+      header {
+        gap: 12px;
+        padding-top: 22px;
+        padding-bottom: 22px;
+      }
+
+      .tagline {
+        font-size: 10px;
+        text-align: right;
+      }
+
+      .hero-line {
+        padding-top: 20px;
+        padding-bottom: 32px;
+      }
+
+      .hero-line > p {
+        font-size: 12px;
+      }
+
+      .gateway {
+        flex-direction: column;
+        min-height: auto;
+        gap: 14px;
+      }
+
+      .door {
+        flex: none;
+        min-height: 390px;
+        padding: 42px 20px;
+        border-radius: 22px;
+      }
+
+      .gateway:has(.door:hover) .door {
+        flex: none;
+      }
+
+      .download-section,
+      .featured-section {
+        margin-right: 5vw;
+        margin-left: 5vw;
+        border-radius: 20px;
+      }
+
+      .featured-section {
+        margin-top: 24px;
+      }
+
+      .experience-health {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
-<body>
 
+<body>
   <header>
     <div class="wordmark">Trinal<span>Studio</span></div>
-    <div class="tagline">100% gratuit — sans pub</div>
+    <div class="tagline">100 % gratuit — sans pub</div>
   </header>
 
-  <div class="hero-line">
-    <div class="hero-kicker"><span class="dot"></span>Expérience Trinal Studio</div>
-    <h1>Plusieurs univers. Zéro pub. Zéro euro.</h1>
-    <p>Choisis ton expérience : streaming vidéo, streaming musical, jeu vélo 3D et plateformes créatives.</p>
-    <div class="hero-pills">
-      <span class="hero-pill">Ambiance cinéma</span>
-      <span class="hero-pill">Flow musical</span>
-      <span class="hero-pill">Ride 3D</span>
-      <span class="hero-pill">Univers créatifs</span>
-      <span class="hero-pill">Accès instantané</span>
-    </div>
-  </div>
-
-  <div class="gateway">
-    <div class="seam"></div>
-
-    <!-- Remplace ce lien par l'URL réelle de Trinal Movies -->
-    <a class="door movies" href="https://ferry-crowd-baking-liz.trycloudflare.com" aria-label="Aller sur Trinal Movies">
-      <div class="motif"></div>
-      <span class="orb" aria-hidden="true">🎬</span>
-      <span class="eyebrow">Films & séries</span>
-      <h2>Trinal<br>Movies</h2>
-      <p class="desc">Regarde films et séries en streaming gratuit, avec un accès direct sans publicité.</p>
-      <span class="badge">Gratuit · Sans pub</span>
-      <span class="enter">Entrer →</span>
-    </a>
-
-    <!-- Remplace ce lien par l'URL réelle de Trinal Musik -->
-    <a class="door musik" href="https://particular-bowling-organize-motivated.trycloudflare.com/" aria-label="Aller sur Trinal Musik">
-      <div class="motif"></div>
-      <span class="orb" aria-hidden="true">🎧</span>
-      <span class="eyebrow">Musique</span>
-      <h2>Trinal<br>Musik</h2>
-      <p class="desc">Écoute et découvre de la musique en streaming gratuit, sans coupure publicitaire.</p>
-      <span class="badge">Gratuit · Sans pub</span>
-      <span class="enter">Entrer →</span>
-    </a>
-  </div>
-
-  <section class="featured-section" aria-labelledby="veloworld-title">
-    <div class="featured-content">
-      <span class="eyebrow">Disponibilité en direct</span>
-      <h2 id="veloworld-title">Trinal Velo World</h2>
-      <p>Une expérience de cyclisme 3D jouable dans le navigateur, propulsée par Three.js, avec parcours généré progressivement, 7 ambiances (forêt, campagne, Provence, côte, canyon, Alpes, automne), commandes clavier et boutons tactiles, gestion de la vitesse, de la distance, du sprint et du freinage.</p>
-      <div class="experience-health">
-        <button type="button" class="status-check-btn" data-status-button>Vérifier l'accès</button>
-        <span class="status-message" data-status-message data-state="empty" role="status" aria-live="polite">Aucune vérification lancée.</span>
+  <main>
+    <section class="hero-line" aria-labelledby="hero-title">
+      <div class="hero-kicker">
+        <span class="dot" aria-hidden="true"></span>
+        Expérience Trinal Studio
       </div>
-      <a class="featured-link" href="https://trinalstudioveloworld.onrender.com" target="_blank" rel="noopener noreferrer" aria-label="Découvrir Trinal Velo World">
-        Découvrir Trinal Velo World <span aria-hidden="true">↗</span>
-      </a>
-    </div>
-  </section>
 
-  <section class="featured-section" aria-labelledby="pixeltycoon-title">
-    <div class="featured-content">
-      <span class="eyebrow">Disponibilité en direct</span>
-      <h2 id="pixeltycoon-title">Pixel Tycoon</h2>
-      <p>Une expérience de gestion/tycoon pixelisée accessible directement depuis le site, pensée pour lancer rapidement une partie dans un univers rétro.</p>
-      <div class="experience-health">
-        <button type="button" class="status-check-btn" data-status-button>Vérifier l'accès</button>
-        <span class="status-message" data-status-message data-state="empty" role="status" aria-live="polite">Aucune vérification lancée.</span>
+      <h1 id="hero-title">Plusieurs univers. Zéro pub. Zéro euro.</h1>
+
+      <p>
+        Choisis ton expérience : streaming vidéo, streaming musical,
+        jeu vélo 3D et plateformes créatives.
+      </p>
+
+      <div class="hero-pills" aria-label="Expériences disponibles">
+        <span class="hero-pill">Ambiance cinéma</span>
+        <span class="hero-pill">Flow musical</span>
+        <span class="hero-pill">Ride 3D</span>
+        <span class="hero-pill">Univers créatifs</span>
+        <span class="hero-pill">Accès instantané</span>
       </div>
-      <a class="featured-link" href="https://pixeltycoon.onrender.com" target="_blank" rel="noopener noreferrer" aria-label="Découvrir Pixel Tycoon">
-        Découvrir Pixel Tycoon <span aria-hidden="true">↗</span>
-      </a>
-    </div>
-  </section>
+    </section>
 
-  <section class="featured-section" aria-labelledby="animadex-title">
-    <div class="featured-content">
-      <span class="eyebrow">Disponibilité en direct</span>
-      <h2 id="animadex-title">Animadex</h2>
-      <p>Une plateforme orientée découverte d'animations et de contenus animés, accessible en un clic depuis l'univers Trinal Studio.</p>
-      <div class="experience-health">
-        <button type="button" class="status-check-btn" data-status-button>Vérifier l'accès</button>
-        <span class="status-message" data-status-message data-state="empty" role="status" aria-live="polite">Aucune vérification lancée.</span>
+    <section class="gateway" aria-label="Choisir une expérience">
+      <a
+        class="door movies"
+        href="https://ferry-crowd-baking-liz.trycloudflare.com"
+        aria-label="Aller sur Trinal Movies"
+      >
+        <div class="motif" aria-hidden="true"></div>
+        <span class="orb" aria-hidden="true">🎬</span>
+        <span class="eyebrow">Films & séries</span>
+        <h2>Trinal<br>Movies</h2>
+        <p class="desc">
+          Regarde films et séries en streaming gratuit, avec un accès direct sans publicité.
+        </p>
+        <span class="badge">Gratuit · Sans pub</span>
+        <span class="enter">Entrer <span aria-hidden="true">→</span></span>
+      </a>
+
+      <a
+        class="door musik"
+        href="https://particular-bowling-organize-motivated.trycloudflare.com/"
+        aria-label="Aller sur Trinal Musik"
+      >
+        <div class="motif" aria-hidden="true"></div>
+        <span class="orb" aria-hidden="true">🎧</span>
+        <span class="eyebrow">Musique</span>
+        <h2>Trinal<br>Musik</h2>
+        <p class="desc">
+          Écoute et découvre de la musique en streaming gratuit, sans coupure publicitaire.
+        </p>
+        <span class="badge">Gratuit · Sans pub</span>
+        <span class="enter">Entrer <span aria-hidden="true">→</span></span>
+      </a>
+    </section>
+
+    <section class="download-section" aria-labelledby="windows-download-title">
+      <span class="eyebrow">Version ordinateur</span>
+      <h2 id="windows-download-title">Trinal Movies pour Windows</h2>
+      <p>
+        Télécharge la version Windows de Trinal Movies et profite de ton expérience
+        depuis ton ordinateur.
+      </p>
+
+      <a
+        class="download-button"
+        href="https://drive.google.com/uc?export=download&amp;id=11fkuc7UL9mntud06WJWdgfDGWRHLR-Qs"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Télécharger Trinal Movies pour Windows depuis Google Drive"
+      >
+        Télécharger pour Windows <span aria-hidden="true">↓</span>
+      </a>
+
+      <span class="download-note">
+        Téléchargement hébergé sur Google Drive. La page de partage ou une confirmation
+        Google Drive peut s’afficher avant le téléchargement.
+      </span>
+    </section>
+
+    <section class="featured-section" aria-labelledby="veloworld-title">
+      <div class="featured-content">
+        <span class="eyebrow">Expérience navigateur</span>
+        <h2 id="veloworld-title">Trinal Velo World</h2>
+        <p>
+          Une expérience de cyclisme 3D jouable dans le navigateur, propulsée par Three.js,
+          avec parcours généré progressivement, 7 ambiances, commandes clavier et tactiles,
+          vitesse, distance, sprint et freinage.
+        </p>
+
+        <div class="experience-health">
+          <button type="button" class="status-check-btn" data-status-button>
+            Vérifier l'accès
+          </button>
+          <span
+            class="status-message"
+            data-status-message
+            data-state="empty"
+            role="status"
+            aria-live="polite"
+          >Aucune vérification lancée.</span>
+        </div>
+
+        <a
+          class="featured-link"
+          href="https://trinalstudioveloworld.onrender.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Découvrir Trinal Velo World"
+        >
+          Découvrir Trinal Velo World <span aria-hidden="true">↗</span>
+        </a>
       </div>
-      <a class="featured-link" href="https://animadex.onrender.com" target="_blank" rel="noopener noreferrer" aria-label="Découvrir Animadex">
-        Découvrir Animadex <span aria-hidden="true">↗</span>
-      </a>
-    </div>
-  </section>
+    </section>
 
-  <footer>Trinal Studio — Édité en indépendant · Toujours gratuit, toujours sans pub</footer>
+    <section class="featured-section" aria-labelledby="pixeltycoon-title">
+      <div class="featured-content">
+        <span class="eyebrow">Expérience navigateur</span>
+        <h2 id="pixeltycoon-title">Pixel Tycoon</h2>
+        <p>
+          Une expérience de gestion/tycoon pixelisée accessible directement depuis le site,
+          pensée pour lancer rapidement une partie dans un univers rétro.
+        </p>
+
+        <div class="experience-health">
+          <button type="button" class="status-check-btn" data-status-button>
+            Vérifier l'accès
+          </button>
+          <span
+            class="status-message"
+            data-status-message
+            data-state="empty"
+            role="status"
+            aria-live="polite"
+          >Aucune vérification lancée.</span>
+        </div>
+
+        <a
+          class="featured-link"
+          href="https://pixeltycoon.onrender.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Découvrir Pixel Tycoon"
+        >
+          Découvrir Pixel Tycoon <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="featured-section" aria-labelledby="animadex-title">
+      <div class="featured-content">
+        <span class="eyebrow">Expérience navigateur</span>
+        <h2 id="animadex-title">Animadex</h2>
+        <p>
+          Une plateforme orientée découverte d'animations et de contenus animés,
+          accessible en un clic depuis l'univers Trinal Studio.
+        </p>
+
+        <div class="experience-health">
+          <button type="button" class="status-check-btn" data-status-button>
+            Vérifier l'accès
+          </button>
+          <span
+            class="status-message"
+            data-status-message
+            data-state="empty"
+            role="status"
+            aria-live="polite"
+          >Aucune vérification lancée.</span>
+        </div>
+
+        <a
+          class="featured-link"
+          href="https://animadex.onrender.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Découvrir Animadex"
+        >
+          Découvrir Animadex <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Trinal Studio — Édité en indépendant · Toujours gratuit, toujours sans pub
+  </footer>
 
   <script>
     document.querySelectorAll('.featured-section').forEach((section) => {
@@ -516,18 +873,31 @@
         const timeoutId = setTimeout(() => controller.abort(), 7000);
 
         try {
+          /*
+           * En mode no-cors, le navigateur ne permet pas de confirmer le statut HTTP.
+           * Ce test indique seulement si une requête a pu être envoyée sans erreur réseau.
+           */
           await fetch(featuredLink.href, {
             method: 'HEAD',
             mode: 'no-cors',
             cache: 'no-store',
             signal: controller.signal
           });
-          setState('success', `${title} semble accessible. Tu peux ouvrir le lien.`);
+
+          setState(
+            'success',
+            `${title} répond à la requête. Ouvre le lien pour vérifier l'accès.`
+          );
         } catch (error) {
-          const timeoutMessage = error instanceof DOMException && error.name === 'AbortError';
-          setState('error', timeoutMessage
-            ? `La vérification de ${title} a expiré. Réessaie dans quelques secondes.`
-            : `Impossible de vérifier ${title} pour l’instant. Réessaie plus tard.`);
+          const timedOut =
+            error instanceof DOMException && error.name === 'AbortError';
+
+          setState(
+            'error',
+            timedOut
+              ? `La vérification de ${title} a expiré. Réessaie dans quelques secondes.`
+              : `Impossible de joindre ${title} pour l'instant. Réessaie plus tard.`
+          );
         } finally {
           clearTimeout(timeoutId);
           checkButton.disabled = false;
@@ -535,6 +905,6 @@
       });
     });
   </script>
-
 </body>
 </html>
+```

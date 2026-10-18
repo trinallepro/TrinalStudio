@@ -32,6 +32,8 @@
       --velo-deep: #24173d;
       --animadex: #f472b6;
       --animadex-deep: #40152f;
+      --trinalia: #7dd3fc;
+      --trinalia-deep: #0c2a3d;
     }
 
     * {
@@ -565,6 +567,37 @@
       background: rgba(180, 154, 255, .18);
     }
 
+    /* Variante Trinal IA */
+    .featured-section.trinalia {
+      border-color: rgba(125, 211, 252, .32);
+      background:
+        radial-gradient(110% 160% at 10% 10%, var(--trinalia-deep) 0%, rgba(17, 17, 25, .9) 58%, var(--bg) 100%);
+    }
+
+    .featured-section.trinalia::before {
+      background: linear-gradient(125deg, transparent 15%, var(--trinalia) 50%, transparent 85%);
+    }
+
+    .featured-section.trinalia .eyebrow {
+      color: var(--trinalia);
+    }
+
+    .featured-section.trinalia .featured-link {
+      border-color: var(--trinalia);
+    }
+
+    .featured-section.trinalia .featured-link:hover {
+      background: rgba(125, 211, 252, .18);
+    }
+
+    .featured-section.trinalia .status-check-btn {
+      border-color: rgba(125, 211, 252, .7);
+    }
+
+    .featured-section.trinalia .status-check-btn:hover {
+      background: rgba(125, 211, 252, .18);
+    }
+
     footer {
       padding: 30px 5vw 36px;
       color: var(--muted);
@@ -670,13 +703,14 @@
 
       <p>
         Choisis ton expérience : streaming vidéo, streaming musical,
-        jeu vélo 3D et plateformes créatives.
+        jeu vélo 3D, assistant IA et plateformes créatives.
       </p>
 
       <div class="hero-pills" aria-label="Expériences disponibles">
         <span class="hero-pill">Ambiance cinéma</span>
         <span class="hero-pill">Flow musical</span>
         <span class="hero-pill">Ride 3D</span>
+        <span class="hero-pill">Assistant IA</span>
         <span class="hero-pill">Univers créatifs</span>
         <span class="hero-pill">Accès instantané</span>
       </div>
@@ -839,6 +873,41 @@
           aria-label="Découvrir Animadex"
         >
           Découvrir Animadex <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="featured-section trinalia" aria-labelledby="trinalia-title">
+      <div class="featured-content">
+        <span class="eyebrow">Expérience navigateur</span>
+        <h2 id="trinalia-title">Trinal IA</h2>
+        <p>
+          L'assistant intelligent de l'univers Trinal Studio : pose tes questions,
+          génère des idées et explore la créativité assistée par IA,
+          directement depuis ton navigateur.
+        </p>
+
+        <div class="experience-health">
+          <button type="button" class="status-check-btn" data-status-button>
+            Vérifier l'accès
+          </button>
+          <span
+            class="status-message"
+            data-status-message
+            data-state="empty"
+            role="status"
+            aria-live="polite"
+          >Aucune vérification lancée.</span>
+        </div>
+
+        <a
+          class="featured-link"
+          href="https://blake-minolta-gather-finder.trycloudflare.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Découvrir Trinal IA"
+        >
+          Découvrir Trinal IA <span aria-hidden="true">↗</span>
         </a>
       </div>
     </section>

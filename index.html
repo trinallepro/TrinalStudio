@@ -189,54 +189,6 @@
       padding: 40px 0 60px; 
     }
     
-    /* Global health status pill in Hero */
-    .global-status-badge {
-      display: inline-flex; 
-      align-items: center; 
-      gap: 10px; 
-      margin-bottom: 24px; 
-      padding: 8px 18px;
-      border: 1px solid rgba(255, 255, 255, 0.08); 
-      border-radius: 999px;
-      background: rgba(13, 13, 22, 0.6); 
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      font-family: 'Space Mono', monospace; 
-      font-size: 11px; 
-      letter-spacing: 0.08em; 
-      text-transform: uppercase;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    }
-    
-    .global-status-badge .pulse-dot {
-      width: 8px; 
-      height: 8px; 
-      border-radius: 50%;
-      background: var(--color-success); 
-      box-shadow: 0 0 10px var(--color-success);
-      transition: background-color 0.5s ease, box-shadow 0.5s ease;
-    }
-
-    .global-status-badge.warning .pulse-dot {
-      background: var(--color-warning);
-      box-shadow: 0 0 10px var(--color-warning);
-    }
-
-    .global-status-badge.error .pulse-dot {
-      background: var(--color-error);
-      box-shadow: 0 0 10px var(--color-error);
-    }
-
-    .pulse-dot.animating {
-      animation: pulse-breathing 2s infinite;
-    }
-
-    @keyframes pulse-breathing {
-      0% { transform: scale(0.95); opacity: 0.8; }
-      50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 14px currentColor; }
-      100% { transform: scale(0.95); opacity: 0.8; }
-    }
-    
     .hero h1 {
       font-family: 'Big Shoulders Display', sans-serif; 
       font-size: clamp(38px, 7vw, 76px); 
@@ -277,6 +229,13 @@
       flex: 1; 
       height: 1px; 
       background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), transparent); 
+    }
+    .section-note {
+      margin: -8px 0 26px;
+      color: rgba(255, 255, 255, 0.62);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
     }
 
     /* Experience Grids */
@@ -394,77 +353,6 @@
     .glass-card.tycoon .card-icon { color: var(--color-tycoon); border-color: rgba(255, 215, 0, 0.2); background: rgba(255, 215, 0, 0.08); }
         .glass-card.cycling .card-icon { color: var(--color-cycling); border-color: rgba(52, 211, 153, 0.2); background: rgba(52, 211, 153, 0.08); }
     .glass-card.animadex .card-icon { color: var(--color-animadex); border-color: rgba(255, 77, 166, 0.2); background: rgba(255, 77, 166, 0.08); }
-
-    /* Elegant Status Indicator Pill */
-    .status-indicator {
-      display: flex; 
-      align-items: center; 
-      gap: 7px; 
-      font-family: 'Space Mono', monospace; 
-      font-size: 10px;
-      padding: 5px 12px; 
-      border-radius: 999px; 
-      background: rgba(0, 0, 0, 0.25); 
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-    }
-    .status-indicator .status-dot { 
-      width: 6px; 
-      height: 6px; 
-      border-radius: 50%; 
-      background: rgba(255, 255, 255, 0.3); 
-    }
-    .status-indicator .status-text { 
-      color: rgba(255, 255, 255, 0.45); 
-      text-transform: uppercase; 
-      letter-spacing: 0.05em; 
-      font-weight: 700;
-    }
-    
-    /* Checking status */
-    .status-indicator.checking {
-      border-color: rgba(245, 158, 11, 0.2);
-      background: rgba(245, 158, 11, 0.04);
-    }
-    .status-indicator.checking .status-dot { 
-      background: var(--color-warning); 
-      box-shadow: 0 0 6px var(--color-warning);
-      animation: blink 1.2s infinite; 
-    }
-    .status-indicator.checking .status-text { 
-      color: var(--color-warning); 
-    }
-
-    /* Online status */
-    .status-indicator.online {
-      border-color: rgba(16, 185, 129, 0.25);
-      background: rgba(16, 185, 129, 0.06);
-    }
-    .status-indicator.online .status-dot { 
-      background: var(--color-success); 
-      box-shadow: 0 0 8px var(--color-success); 
-    }
-    .status-indicator.online .status-text { 
-      color: var(--color-success); 
-    }
-
-    /* Offline status */
-    .status-indicator.offline {
-      border-color: rgba(239, 68, 68, 0.25);
-      background: rgba(239, 68, 68, 0.06);
-    }
-    .status-indicator.offline .status-dot { 
-      background: var(--color-error); 
-      box-shadow: 0 0 8px var(--color-error); 
-    }
-    .status-indicator.offline .status-text { 
-      color: var(--color-error); 
-    }
-
-    @keyframes blink { 
-      0%, 100% { opacity: 1; } 
-      50% { opacity: 0.4; } 
-    }
 
     .card-title { 
       font-family: 'Big Shoulders Display', sans-serif; 
@@ -663,25 +551,18 @@
 
     <main>
       <section class="hero">
-        <div class="global-status-badge">
-          <div class="pulse-dot animating"></div>
-          <span id="global-status-text">Surveillance active</span>
-        </div>
         <h1>L'écosystème<br>Divertissement</h1>
         <p>Explorez nos univers connectés. Streaming vidéo, musique illimitée, poker multijoueur et expériences WebGL directement dans votre navigateur.</p>
       </section>
 
       <div class="section-title">Gateway / Serveurs Tunnels</div>
+      <p class="section-note">Les identifiants (login et mot de passe) sont désormais les mêmes pour Trinal Movies et Trinal Musik. Trinal Musik a aussi été revu pour une simplicité maximale.</p>
       <div class="gateway-grid">
         
-        <a href="https://specific-carefully-enter-joan.trycloudflare.com " class="glass-card movies" data-url="https://electrical-query-posting-configuring.trycloudflare.com">
+        <a href="https://specific-carefully-enter-joan.trycloudflare.com " class="glass-card movies">
           <div class="card-content">
             <div class="card-header">
               <div class="card-icon">🎬</div>
-              <div class="status-indicator checking">
-                <div class="status-dot"></div>
-                <span class="status-text">Vérification...</span>
-              </div>
             </div>
             <h2 class="card-title">Trinal Movies</h2>
             <p class="card-desc">Plateforme de streaming de films et séries. Interface sombre, fluide et sans publicité.</p>
@@ -692,17 +573,13 @@
           </div>
         </a>
 
-        <a href="https://savannah-unsigned-classifieds-enabling.trycloudflare.com" class="glass-card musik" data-url="https://33070a57961263c3-88-168-225-226.serveousercontent.com">
+        <a href="https://savannah-unsigned-classifieds-enabling.trycloudflare.com" class="glass-card musik">
           <div class="card-content">
             <div class="card-header">
               <div class="card-icon">🎧</div>
-              <div class="status-indicator checking">
-                <div class="status-dot"></div>
-                <span class="status-text">Vérification...</span>
-              </div>
             </div>
             <h2 class="card-title">Trinal Musik</h2>
-            <p class="card-desc">Streaming musical haute qualité. Créez vos playlists et profitez de vos artistes favoris.</p>
+            <p class="card-desc">Streaming musical haute qualité, revu pour une simplicité maximale. Créez vos playlists et profitez de vos artistes favoris.</p>
             <div class="card-footer">
               <span class="card-badge">Tunnel CF</span>
               <span class="card-arrow">Accéder ➔</span>
@@ -711,14 +588,10 @@
         </a>
 
 
-        <a href="https://tropical-flux-really-zinc.trycloudflare.com/" class="glass-card cycling" data-url="https://tropical-flux-really-zinc.trycloudflare.com">
+        <a href="https://tropical-flux-really-zinc.trycloudflare.com/" class="glass-card cycling">
           <div class="card-content">
             <div class="card-header">
               <div class="card-icon">🏆</div>
-              <div class="status-indicator checking">
-                <div class="status-dot"></div>
-                <span class="status-text">Vérification...</span>
-              </div>
             </div>
             <h2 class="card-title">Trinal Cycling Manager</h2>
             <p class="card-desc">Simulation complète de gestion et de courses cyclistes en temps réel avec tactiques d'équipe.</p>
@@ -729,14 +602,10 @@
           </div>
         </a>
 
-        <a href="https://artists-archive-operator-prepaid.trycloudflare.com/" class="glass-card poker" data-url="https://artists-archive-operator-prepaid.trycloudflare.com">
+        <a href="https://artists-archive-operator-prepaid.trycloudflare.com/" class="glass-card poker">
           <div class="card-content">
             <div class="card-header">
               <div class="card-icon">♠️</div>
-              <div class="status-indicator checking">
-                <div class="status-dot"></div>
-                <span class="status-text">Vérification...</span>
-              </div>
             </div>
             <h2 class="card-title">Trinal Poker</h2>
             <p class="card-desc">Tables de poker multijoueur en temps réel avec avatars personnalisés et jetons virtuels.</p>
@@ -751,14 +620,10 @@
       <div class="section-title">Expériences Navigateur</div>
       <div class="gateway-grid">
 
-        <a href="https://trinalstudioveloworld.onrender.com" target="_blank" class="glass-card velo" data-url="https://33070a57961263c3-88-168-225-226.serveousercontent.com">
+        <a href="https://trinalstudioveloworld.onrender.com" target="_blank" class="glass-card velo">
           <div class="card-content">
             <div class="card-header">
               <div class="card-icon">🚴</div>
-              <div class="status-indicator checking">
-                <div class="status-dot"></div>
-                <span class="status-text">Vérification...</span>
-              </div>
             </div>
             <h2 class="card-title">Velo World</h2>
             <p class="card-desc">Simulation de cyclisme 3D WebGL. Parcourez des mondes générés avec gestion d'énergie.</p>
@@ -769,14 +634,10 @@
           </div>
         </a>
 
-        <a href="https://pixeltycoon.onrender.com" target="_blank" class="glass-card tycoon" data-url="https://33070a57961263c3-88-168-225-226.serveousercontent.com">
+        <a href="https://pixeltycoon.onrender.com" target="_blank" class="glass-card tycoon">
           <div class="card-content">
             <div class="card-header">
               <div class="card-icon">🏢</div>
-              <div class="status-indicator checking">
-                <div class="status-dot"></div>
-                <span class="status-text">Vérification...</span>
-              </div>
             </div>
             <h2 class="card-title">Pixel Tycoon</h2>
             <p class="card-desc">Jeu de gestion incrémental. Bâtissez votre empire dans un style pixel art rétro.</p>
@@ -787,14 +648,10 @@
           </div>
         </a>
 
-        <a href="https://animadex.onrender.com" target="_blank" class="glass-card animadex" data-url="https://33070a57961263c3-88-168-225-226.serveousercontent.com">
+        <a href="https://animadex.onrender.com" target="_blank" class="glass-card animadex">
           <div class="card-content">
             <div class="card-header">
               <div class="card-icon">📺</div>
-              <div class="status-indicator checking">
-                <div class="status-dot"></div>
-                <span class="status-text">Vérification...</span>
-              </div>
             </div>
             <h2 class="card-title">Animadex</h2>
             <p class="card-desc">Encyclopédie et découverte d'univers animés. Base de données complète et explorateur.</p>
@@ -836,79 +693,6 @@
       });
     });
 
-    // Dynamic Health Check System
-    async function checkHealth() {
-      const cards = document.querySelectorAll('.glass-card');
-      const totalServices = cards.length;
-      let onlineCount = 0;
-      let checkedCount = 0;
-      
-      const promises = Array.from(cards).map(async (card, idx) => {
-        const url = card.dataset.url;
-        const indicator = card.querySelector('.status-indicator');
-        const text = indicator.querySelector('.status-text');
-        
-        if (!url || !indicator) return;
-
-        // Introduce a subtle stagger to make the load animation feel highly organic
-        await new Promise(resolve => setTimeout(resolve, idx * 120));
-
-        try {
-          const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 12000); // 12 seconds to account for Render spins
-          
-          await fetch(url, {
-            method: 'HEAD',
-            mode: 'no-cors',
-            cache: 'no-store',
-            signal: controller.signal
-          });
-          
-          clearTimeout(timeoutId);
-          indicator.className = 'status-indicator online';
-          text.textContent = 'En ligne';
-          onlineCount++;
-        } catch (err) {
-          indicator.className = 'status-indicator offline';
-          text.textContent = 'Inactif';
-        } finally {
-          checkedCount++;
-          updateGlobalStatus(onlineCount, checkedCount, totalServices);
-        }
-      });
-
-      await Promise.all(promises);
-    }
-
-    // Update real-time global status badge in the hero
-    function updateGlobalStatus(online, checked, total) {
-      const badge = document.querySelector('.global-status-badge');
-      const text = document.getElementById('global-status-text');
-      
-      if (!badge || !text) return;
-      
-      if (checked < total) {
-        badge.className = 'global-status-badge warning';
-        text.textContent = `Analyse en cours (${checked}/${total})...`;
-      } else {
-        if (online === total) {
-          badge.className = 'global-status-badge';
-          text.textContent = `Tous les systèmes opérationnels (${online}/${total})`;
-        } else if (online > 0) {
-          badge.className = 'global-status-badge warning';
-          text.textContent = `Systèmes opérationnels (${online}/${total})`;
-        } else {
-          badge.className = 'global-status-badge error';
-          text.textContent = `Tous les services sont inactifs (${online}/${total})`;
-        }
-      }
-    }
-
-    // Run health checks on DOM load
-    window.addEventListener('DOMContentLoaded', checkHealth);
-    
-    // Refresh every 35 seconds
-    setInterval(checkHealth, 35000);
   </script>
 </body>
 </html>

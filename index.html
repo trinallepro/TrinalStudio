@@ -39,6 +39,9 @@
       --color-cycling: #34d399;
       --color-cycling-glow: rgba(52, 211, 153, 0.12);
       
+      --color-bf2: #3b82f6;
+      --color-bf2-glow: rgba(59, 130, 246, 0.12);
+      
       --color-success: #10b981;
       --color-error: #ef4444;
       --color-warning: #f59e0b;
@@ -314,6 +317,10 @@
       border-color: rgba(255, 77, 166, 0.35); 
       box-shadow: 0 16px 40px -15px var(--color-animadex-glow); 
     }
+    .glass-card.bf2:hover { 
+      border-color: rgba(59, 130, 246, 0.35); 
+      box-shadow: 0 16px 40px -15px var(--color-bf2-glow); 
+    }
 
     .card-content { 
       position: relative; 
@@ -353,6 +360,7 @@
     .glass-card.tycoon .card-icon { color: var(--color-tycoon); border-color: rgba(255, 215, 0, 0.2); background: rgba(255, 215, 0, 0.08); }
         .glass-card.cycling .card-icon { color: var(--color-cycling); border-color: rgba(52, 211, 153, 0.2); background: rgba(52, 211, 153, 0.08); }
     .glass-card.animadex .card-icon { color: var(--color-animadex); border-color: rgba(255, 77, 166, 0.2); background: rgba(255, 77, 166, 0.08); }
+    .glass-card.bf2 .card-icon { color: var(--color-bf2); border-color: rgba(59, 130, 246, 0.2); background: rgba(59, 130, 246, 0.08); }
 
     .card-title { 
       font-family: 'Big Shoulders Display', sans-serif; 
@@ -412,6 +420,7 @@
     .glass-card.tycoon .card-arrow { color: var(--color-tycoon); }
         .glass-card.cycling .card-arrow { color: var(--color-cycling); }
     .glass-card.animadex .card-arrow { color: var(--color-animadex); }
+    .glass-card.bf2 .card-arrow { color: var(--color-bf2); }
 
     /* Download Premium Widescreen Panel */
     .download-panel {
@@ -609,6 +618,20 @@
             </div>
             <h2 class="card-title">Trinal Poker</h2>
             <p class="card-desc">Tables de poker multijoueur en temps réel avec avatars personnalisés et jetons virtuels.</p>
+            <div class="card-footer">
+              <span class="card-badge">Tunnel CF</span>
+              <span class="card-arrow">Accéder ➔</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://excellence-carter-struct-potential.trycloudflare.com" class="glass-card bf2">
+          <div class="card-content">
+            <div class="card-header">
+              <div class="card-icon">⚔️</div>
+            </div>
+            <h2 class="card-title">Battlefront II Elo</h2>
+            <p class="card-desc">Classement Elo persistant pour Star Wars Battlefront II : matchs, statistiques et prédictions de victoire.</p>
             <div class="card-footer">
               <span class="card-badge">Tunnel CF</span>
               <span class="card-arrow">Accéder ➔</span>
